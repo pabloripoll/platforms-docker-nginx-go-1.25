@@ -143,7 +143,7 @@ NAME                      CPU %     MEM USAGE  /  LIMIT    MEM %
 (?)-mailhog-dev           0.00%     4.902MiB   /  128MiB   3.83%
 (?)-apirest-dev           0.04%     55.68MiB   /  512MiB   10.87%
 ----------------------------------------------------------------------
------------------------------------ 376.812MiB /  1664MiB
+----------------------------------- 81.812MiB  /  768MiB
 ```
 
 ### Managing the `apirest` Directory: Submodule vs Detached Repository
