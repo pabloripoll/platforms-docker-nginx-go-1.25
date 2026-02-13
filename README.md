@@ -11,8 +11,6 @@
 This Infrastructure Platform repository is designed for back-end projects and provides separate platforms:
 
 - **REST API Platform:** Linux Alpine version 3.22 + NGINX version 1.28 *(or latest by APK)* + GO 1.25
-- **Core Database Platform:** Linux Alpine version 3.20 + Postgres 16.4
-- **Mail Service Platform:** Linux Alpine version 3.12 + Mailhog 1.0
 
 The goal of this repository is to offer developers a consistent framework for local development, mirroring real-world deployment scenarios. In production, the API may be deployed on an AWS EC2 / GCP GCE or instance or distributed across Kubernetes pods, while the database would reside on an AWS RDS instance. thus, network connection between platforms are decoupled.
 
@@ -51,42 +49,24 @@ Repository directories structure overview:
 │   └── ...         # sub-module or detach with the real project respository
 │
 ├── platform
-│   ├── mailhog-1.0
-│   │   ├── Makefile
-│   │   └── docker
-│   │       ├── Dockerfile
-│   │       ├── docker-compose.network.yml
-│   │       └── docker-compose.yml
-│   │
-│   ├── nginx-go-1.25
-│   │    ├── LICENSE
-│   │    ├── Makefile
-│   │    └── docker
-│   │       ├── Dockerfile
-│   │       ├── config
-│   │       │   ├── go
-│   │       │   ├── nginx
-│   │       │   │   ├── conf.d
-│   │       │   │   │   └── default.conf
-│   │       │   │   └── nginx.conf
-│   │       │   └── supervisor
-│   │       │       ├── conf.d
-│   │       │       │   ├── go.conf
-│   │       │       │   └── nginx.conf
-│   │       │       └── supervisord.conf
-│   │       ├── docker-compose.network.yml
-│   │       └── docker-compose.yml
-│   │
-│   └── pgsql-16.4
-│       ├── Makefile
-│       └── docker
-│           ├── Dockerfile
-│           ├── README.md
-│           ├── docker-compose-w-data.yml
-│           ├── docker-compose.network.yml
-│           ├── docker-compose.yml
-│           ├── docker-ensure-initdb.sh
-│           └── docker-entrypoint.sh
+│   └── nginx-go-1.25
+│        ├── LICENSE
+│        ├── Makefile
+│        └── docker
+│           ├── Dockerfile
+│           ├── config
+│           │   ├── go
+│           │   ├── nginx
+│           │   │   ├── conf.d
+│           │   │   │   └── default.conf
+│           │   │   └── nginx.conf
+│           │   └── supervisor
+│           │       ├── conf.d
+│           │       │   ├── go.conf
+│           │       │   └── nginx.conf
+│           │       └── supervisord.conf
+│           ├── docker-compose.network.yml
+│           └── docker-compose.yml
 │
 ├── resources
 │   ├── apirest         # sub-module or detach with the real project respository
@@ -133,17 +113,8 @@ This is the overview of the estimated host machine consumption:
 ```
 $ sudo docker stats
 
-CONTAINER ID   NAME                      CPU %     MEM USAGE / LIMIT   MEM %     NET I/O           BLOCK I/O         PIDS
-4afa058af7a9   (?)-pgsql-dev             0.04%     21.23MiB / 128MiB   16.59%    1.17kB / 126B     1.47MB / 59.5MB   6
-e209405673a1   (?)-mailhog-dev           0.00%     4.902MiB / 128MiB   3.83%     1.3kB / 126B      0B / 0B           6
-fad4ece8a496   (?)-apirest-dev           0.04%     55.68MiB / 512MiB   10.87%    35.1kB / 25.8kB   1.65MB / 3.5MB    11
-
-NAME                      CPU %     MEM USAGE  /  LIMIT    MEM %
-(?)-pgsql-dev             0.04%     21.23MiB   /  128MiB   16.59%
-(?)-mailhog-dev           0.00%     4.902MiB   /  128MiB   3.83%
-(?)-apirest-dev           0.04%     55.68MiB   /  512MiB   10.87%
-----------------------------------------------------------------------
------------------------------------ 81.812MiB  /  768MiB
+CONTAINER ID   NAME             CPU %     MEM USAGE / LIMIT   MEM %     NET I/O           BLOCK I/O         PIDS
+fad4ece8a496   (?)-apirest-dev  0.04%     55.68MiB / 512MiB   10.87%    35.1kB / 25.8kB   1.65MB / 3.5MB    11
 ```
 
 ### Managing the `apirest` Directory: Submodule vs Detached Repository
