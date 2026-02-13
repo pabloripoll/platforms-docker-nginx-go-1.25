@@ -40,7 +40,6 @@ help: ## shows this Makefile help message
 
 local_ip ?= $(word 1,$(shell hostname -I))
 local-info: ## shows local machine ip and container ports set
-	echo "Container Services:"
 	echo ${C_BLU}"LOCAL IP / HOSTNAME:"${C_END} ${C_YEL}"$(local_ip)"${C_END}
 
 user ?= ${USER}
